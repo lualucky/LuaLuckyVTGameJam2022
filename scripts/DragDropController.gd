@@ -14,7 +14,7 @@ var draggables = []
 
 var selected_obj
 
-var selected_width = 50
+var selected_width = 70
 
 export(ShaderMaterial) var outline_shader
 
@@ -38,6 +38,8 @@ func update_candidates():
 	var cands = get_tree().get_nodes_in_group(drag_group)
 	for dragable in cands:
 		if dragable is CollisionObject2D && !(dragable in draggables):
+			selected_obj = dragable
+			select_object()
 			draggables.append(dragable)
 			dragable.connect("mouse_entered",self,"mouse_entered",[dragable])
 			dragable.connect("mouse_exited",self,"mouse_exited",[dragable])
@@ -88,8 +90,14 @@ func input_event(_viewport: Node, event: InputEvent, _shape_idx: int,_which:Node
 
 func select_object():
 	if selected_obj:
-		var color = selected_obj.get_node("Outline")
-		color.material = outline_shader;
+		# create the outline on the selected item
+		var outline = selected_obj.get_node("Outline")
+		outline.material = outline_shader;
+		
+		# set color picker color
+		var color = selected_obj.get_node("Color").self_modulate
+		get_tree().root.get_child(0).get_node("ColorPicker").set_pick_color(color)
+		
 	emit_signal("object_selected")
 	
 func deselect_object():
