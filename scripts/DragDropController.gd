@@ -10,26 +10,38 @@ export var deselect_group = "bg"
 
 export var snap = 20
 
+var draggables = []
+
 var selected_obj
 
-var selected_width = 5.5
+var selected_width = 50
+
+export(ShaderMaterial) var outline_shader
+
+signal object_selected
+signal object_deselected
 
 
 func _ready():
-	var draggables = get_tree().get_nodes_in_group(drag_group)
-	for dragable in draggables:
-		if dragable is CollisionObject2D:
-			dragable.connect("mouse_entered",self,"mouse_entered",[dragable])
-			dragable.connect("mouse_exited",self,"mouse_exited",[dragable])
-			dragable.connect("input_event",self,"input_event",[dragable])
-			
 	var bglist = get_tree().get_nodes_in_group(deselect_group)
 	for bg in bglist:
 		if bg is CollisionObject2D:
-			print("added bg")
 			bg.connect("mouse_entered",self,"mouse_entered",[bg])
 			bg.connect("mouse_exited",self,"mouse_exited",[bg])
 			bg.connect("input_event",self,"input_event",[bg])
+			
+	update_candidates()
+	
+	get_tree().root.get_child(0).get_node("Trash Button").connect("enable_button", self, "object_selected")
+
+func update_candidates():
+	var cands = get_tree().get_nodes_in_group(drag_group)
+	for dragable in cands:
+		if dragable is CollisionObject2D && !(dragable in draggables):
+			draggables.append(dragable)
+			dragable.connect("mouse_entered",self,"mouse_entered",[dragable])
+			dragable.connect("mouse_exited",self,"mouse_exited",[dragable])
+			dragable.connect("input_event",self,"input_event",[dragable])
 
 func _process(_delta):
 	if current is Node2D:
@@ -50,9 +62,10 @@ func input_event(_viewport: Node, event: InputEvent, _shape_idx: int,_which:Node
 			var last = candidates.back()
 			if last:
 				last.raise()
-				if((current && current != last) || last.is_in_group(deselect_group)):
+				if(current != last || last.is_in_group(deselect_group)):
 					deselect_object()
-					return
+					if last.is_in_group(deselect_group):
+						return
 				current = last
 				selected_obj = last
 				select_object()
@@ -75,21 +88,28 @@ func input_event(_viewport: Node, event: InputEvent, _shape_idx: int,_which:Node
 
 func select_object():
 	if selected_obj:
-		var children = selected_obj.get_children()
-		for c in children:
-			if c is Sprite:
-				if c.material:
-					c.material.set_shader_param("width", selected_width);
+		var color = selected_obj.get_node("Outline")
+		color.material = outline_shader;
+	emit_signal("object_selected")
 	
 func deselect_object():
-	print("Deselect!")
 	if selected_obj:
-		var children = selected_obj.get_children()
-		for c in children:
-			if c is Sprite:
-				if c.material:
-					c.material.set_shader_param("width", 0);
+		var color = selected_obj.get_node("Outline")
+		if color:
+			color.material = null;
 	selected_obj = null;
+	emit_signal("object_deselected")
 
 func depth_sort(a,b):
 	return b.get_index()<a.get_index()
+
+func color_changed(color):
+	if selected_obj:
+		var obj = selected_obj.get_node("Color")
+		if obj:
+			obj.self_modulate = color
+			
+func trash_selected():
+	selected_obj.queue_free()
+	selected_obj = null
+	emit_signal("object_deselected")

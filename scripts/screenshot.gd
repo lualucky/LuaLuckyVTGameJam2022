@@ -59,7 +59,7 @@ func _update_tags():
 	if (_tag == time): _index += 1
 	else:
 		_index = 0
-	_tag = time	
+	_tag = time
 	
 func set_shortcut_action(action):
 	_check_actions([action])
