@@ -8,26 +8,26 @@
 [node name="Gakuran" type="Node2D"]
 scale = Vector2( 0.97, 0.97 )
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." groups=["draggable"]]
+[node name="GakuranBody" type="StaticBody2D" parent="." groups=["draggable"]]
 input_pickable = true
 
-[node name="Outline" type="Sprite" parent="StaticBody2D"]
+[node name="Outline" type="Sprite" parent="GakuranBody"]
 position = Vector2( 269.079, 181.789 )
 texture = ExtResource( 2 )
 
-[node name="Color" type="Sprite" parent="StaticBody2D"]
+[node name="Color" type="Sprite" parent="GakuranBody"]
 position = Vector2( 269.079, 181.789 )
 texture = ExtResource( 1 )
 
-[node name="Constant" type="Sprite" parent="StaticBody2D"]
+[node name="Constant" type="Sprite" parent="GakuranBody"]
 position = Vector2( 273.289, 112.316 )
 texture = ExtResource( 3 )
 
-[node name="Lines" type="Sprite" parent="StaticBody2D"]
+[node name="Lines" type="Sprite" parent="GakuranBody"]
 position = Vector2( 269.079, 181.789 )
 texture = ExtResource( 4 )
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GakuranBody"]
 visible = false
 position = Vector2( 269.079, 181.789 )
 polygon = PoolVector2Array( 225.5, -183.5, 225.5, -181.8, 241.5, -165.8, 241.5, -163.7, 248.5, -155.8, 248.5, -153.5, 257.5, -135.5, 257.5, -131.5, 263.5, -119.5, 263.5, -114.3, 273.5, -81.3, 273.5, -75.4, 280.5, -41.2, 280.5, -14.8, 278.9, -5, 280.7, -5, 284.7, 3, 281.2, 3, 265.3, 17, 259.6, 17, 234.5, 23.5, 236.5, 88, 235.4, 88, 234.4, 108, 233, 108, 229.1, 124, 227.4, 124, 218.4, 135, 216.1, 135, 179, 155, 175.8, 155, 129.8, 170, 124.9, 170, 22.7, 190, 19.4, 190, -44.5, 184.8, -44.5, 183.7, -83.5, 177.7, -83.5, 176.5, -155.5, 159.6, -155.5, 158.4, -190.5, 145.4, -190.5, 144.1, -216.5, 127.1, -216.5, 124.4, -224.5, 103.4, -224.5, 46.8, -261.5, 33.4, -261.5, 31.9, -277.5, 17.9, -277.5, 15.5, -282.5, 3, -279.9, 3, -274.9, -12, -273.6, -12, -258.7, -38, -257.5, -38, -230.5, -74, -229.4, -74, -194.4, -115, -192.2, -115, -170.2, -131, -165.7, -131, -164.2, -119, -166.2, -119, -177.5, -95.6, -158.4, -91, -157.4, -91, -118.3, -87, -115.8, -87, -101.5, -89.4, -101.5, -87.7, -83.1, -84, -82.4, -84, -8.39999, -79, -7.5, -79, 90.5, -83.9, 90.5, -84.9, 107.5, -85.9, 114.1, -89, 124.7, -89, 132.5, -87.5, 158.5, -89.9, 158.5, -90.7, 190.5, -95.7, 190.5, -96.4, 165.1, -143, 168.8, -143, 191.5, -162.9, 191.5, -164.7, 208.5, -185.8, 208.5, -188.7 )

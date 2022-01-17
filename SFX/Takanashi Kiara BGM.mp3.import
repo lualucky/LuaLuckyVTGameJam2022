@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Takanashi Kiara BGM.mp3-5e55c95cc841905729109e568e18a078.mp3str"
+
+[deps]
+
+source_file="res://SFX/Takanashi Kiara BGM.mp3"
+dest_files=[ "res://.import/Takanashi Kiara BGM.mp3-5e55c95cc841905729109e568e18a078.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

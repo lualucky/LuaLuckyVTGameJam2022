@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Sprites/Bikini/BikiniColor.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Bikini/BikiniOutline.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Bikini/BikiniLines.png" type="Texture" id=3]
+
+[node name="BikiniOutfit" type="Node2D"]
+scale = Vector2( 0.965, 0.965 )
+
+[node name="BikiniBody" type="StaticBody2D" parent="." groups=["draggable"]]
+input_pickable = true
+
+[node name="Outline" type="Sprite" parent="BikiniBody"]
+position = Vector2( 276.684, 210.342 )
+texture = ExtResource( 2 )
+
+[node name="Color" type="Sprite" parent="BikiniBody"]
+position = Vector2( 274.579, 210.342 )
+texture = ExtResource( 1 )
+
+[node name="Lines" type="Sprite" parent="BikiniBody"]
+position = Vector2( 274.579, 210.342 )
+texture = ExtResource( 3 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BikiniBody"]
+visible = false
+position = Vector2( 276.684, 210.342 )
+polygon = PoolVector2Array( 173, -176.7, 173, -174.8, 178.8, -157.5, 176.4, -157.5, 170.4, -139.5, 169.3, -139.5, 150.9, -105.5, 194.9, -57.5, 196.7, -57.5, 202.7, -52.5, 216, -52.5, 216, -48.5, 219.3, -25.5, 216.5, -25.5, 209.5, -21.5, 204.3, -21.5, 136.2, -10.5, 129.1, -10.5, 55, -6.60001, 55, -5.8, 42.2, -3.5, -47, -3.5, -47, -4.60001, -133, -9.60001, -133, -10.7, -219, -22.8, -219, -24.3, -223, -26.3, -223, -38.7, -219.6, -53.5, -206, -53.5, -199, -57.6, -199, -58.3, -155, -104.3, -155, -107, -182, -158, -182, -165, -177, -175, -177, -176.7, -174.8, -177.8, -165, -170.5, -165, -167, -135.9, -116.5, -134.6, -116.5, -123.5, -122.5, -119.3, -122.5, -104, -124.8, -104, -123.3, -88, -121.3, -88, -119.9, -73, -113.9, -73, -112.5, -45, -91.5, -45, -89.3, -8, -43.5, -2.89999, -43.5, 3.39999, -42.7, 18, -57.3, 18, -59.1, 38, -87.5, 39.3, -87.5, 70.3, -114.5, 73.4, -114.5, 80.4, -119.5, 83.7, -119.5, 99.7, -124.5, 110.3, -124.5, 131, -117.3, 131, -118, 163.8, -174.5, 165.5, -174.5, 171, -177.8 )
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="BikiniBody"]
+visible = false
+position = Vector2( 276.684, 210.342 )
+polygon = PoolVector2Array( -152.9, 72.5, -143.8, 72.5, -88.6, 82.5, -87.9, 82.5, -30.8, 87.5, -30, 87.5, 65, 84.6, 65, 83.8, 173, 67.8, 173, 67.1, 194.7, 59.5, 201.1, 59.5, 204.3, 64.4, 203.2, 66.5, 202.2, 66.5, 186.2, 95.5, 185, 95.5, 172, 113.5, 170.8, 113.5, 157.8, 126.5, 154, 126.5, 135, 127.4, 95, 141.9, 95, 142.7, 60, 160.7, 60, 161.4, 45.7, 173.5, 40.3, 173.5, 14.2, 177.5, -21, 177.5, -21, 176.3, -49, 173.3, -49, 171.6, -82.6, 150.5, -85.5, 150.5, -124.5, 131.5, -129.3, 131.5, -148.3, 125.5, -165, 125.5, -165, 123.4, -189, 97.3, -189, 94.2, -208, 66.1, -208, 62.3, -206, 61.3, -206, 58.9 )

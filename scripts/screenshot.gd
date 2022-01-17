@@ -18,19 +18,76 @@ func _ready():
 		file_prefix += "_"
 	set_process_input(true)
 	
-func _input(event):
-	if event.is_action_pressed(shortcut_action):
-		make_screenshot()
+#func _input(event):
+	#if event.is_action_pressed(shortcut_action):
+	#	make_screenshot()
 
 func make_screenshot():
+	print("Screenshot attempted")
 	get_viewport().set_clear_mode(Viewport.CLEAR_MODE_ONLY_NEXT_FRAME)
+	
+	var scene = get_tree().root.get_child(0)
+	var obj_control = scene.get_node("SelectedObjectController")
+	
+	obj_control.enable_dragging(false)
+	obj_control.deselect_object()
+	
+	$CameraSetup.play()
+	$BGwChickens.show()
+	
+	var save_but = scene.get_node("Save Button")
+	var menu = scene.get_node("Menu")
+	save_but.hide()
+	menu.hide()
+	
+	var old_position = self.position
+	var old_scale = self.scale
+	
+	self.position = Vector2(0, -150)
+	self.scale = Vector2(.74, .74)
+	
+	var t = Timer.new()
+	t.set_wait_time(1.0)
+	t.set_one_shot(true)
+	self.add_child(t)
+	t.start()
+	yield(t, "timeout")
+	
+	$CameraAudio.play()
+	
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")		
 	var image = get_viewport().get_texture().get_data()
 	image.flip_y()
 
 	_update_tags()
-	image.save_png("%s%s%s_%s.png" % [output_path, file_prefix, _tag, _index])
+	
+	if OS.get_name() == "HTML5":
+		JavaScript.download_buffer(image.save_png_to_buffer(), "KFP_Employee_" + _tag + ".png")
+	else:
+		image.save_png("%s%s%s_%s.png" % [output_path, file_prefix, _tag, _index])
+	
+	t.set_wait_time(.5)
+	t.set_one_shot(true)
+	t.start()
+	yield(t, "timeout")
+		
+	if $CameraFlash:
+		$CameraFlash.get_child(0).play("CameraFlash")
+	
+	t.set_wait_time(1)
+	t.set_one_shot(true)
+	t.start()
+	yield(t, "timeout")
+	t.queue_free()
+	
+	self.position = old_position
+	self.scale = old_scale
+		
+	save_but.show()
+	menu.show()
+	$BGwChickens.hide()
+	obj_control.enable_dragging(true)
 
 func _check_actions(actions=[]):
 	if OS.is_debug_build():
